@@ -34,6 +34,6 @@ public class UserService {
         if (!exists){
             throw  new IllegalStateException("User with ID : " + id + "does not exists");
         }
-        userRepository.findUserById(id);
+        userRepository.deleteById(id);
     }
 }

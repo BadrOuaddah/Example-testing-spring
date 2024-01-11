@@ -29,4 +29,13 @@ public class UserServiveTest {
         assertNotNull(userAdded);
     }
 
+    @Test
+    public void deleteUserTest(){
+        Long id = 1L;
+        when(userRepository.existsById(id)).thenReturn(true);
+        userService.deleteUser(id);
+        verify(userRepository, times(1)).deleteById(id);
+//        assertNotNull(userDeleted);
+    }
+
 }
