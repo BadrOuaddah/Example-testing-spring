@@ -23,7 +23,7 @@ public class UserServiveTest {
 
     @Test
     public void addUserTest(){
-        User user = new User(1, "TestUser", "test@example.com", "password");
+        User user = new User(1L, "TestUser", "test@example.com", "password");
         User userAdded = userService.addUser(user);
         verify(userRepository, times(1)).save(user);
         assertNotNull(userAdded);
@@ -31,9 +31,9 @@ public class UserServiveTest {
 
     @Test
     public void updateUserTest(){
-        int id = 1;
-        User user = new User(1,"nameExample","example@email.com","passwordExample");
-        User userUpdated = new User(1,"updateName","update@email.com","updatePassword");
+        Long id = 1L;
+        User user = new User(1L,"nameExample","example@email.com","passwordExample");
+        User userUpdated = new User(1L,"updateName","update@email.com","updatePassword");
         when(userRepository.findUserById(id)).thenReturn(user);
         userService.updateUser(userUpdated, id);
         assertEquals("updateName",userUpdated.getUserName());
