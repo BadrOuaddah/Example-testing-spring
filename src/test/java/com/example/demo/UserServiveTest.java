@@ -30,6 +30,18 @@ public class UserServiveTest {
     }
 
     @Test
+    public void updateUserTest(){
+        int id = 1;
+        User user = new User(1,"nameExample","example@email.com","passwordExample");
+        User userUpdated = new User(1,"updateName","update@email.com","updatePassword");
+        when(userRepository.findUserById(id)).thenReturn(user);
+        userService.updateUser(userUpdated, id);
+        assertEquals("updateName",userUpdated.getUserName());
+        assertEquals("update@email.com",userUpdated.getEmail());
+        assertEquals("updatePassword",userUpdated.getPassword());
+    }
+
+    @Test
     public void deleteUserTest(){
         Long id = 1L;
         when(userRepository.existsById(id)).thenReturn(true);

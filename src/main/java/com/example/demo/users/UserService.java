@@ -16,7 +16,7 @@ public class UserService {
         return user;
     }
 
-    public void updateUser(User user, Long id){
+    public void updateUser(User user, int id){
         User userOptional = userRepository.findUserById(id);
         if (userOptional != null){
             userOptional.setUserName(user.getUserName());

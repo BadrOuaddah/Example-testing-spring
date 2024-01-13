@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 public interface UserRepository extends JpaRepository<User, Long> {
 
     @Query("SELECT u FROM user u WHERE u.id = ?1")
-    User findUserById(Long id);
+    User findUserById(int id);
 
 
 }
