@@ -1,26 +1,34 @@
 package com.example.demo.users;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
+import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/user")
+@RequestMapping("/api/v1/users")
 public class UserController {
+    @Autowired
+    private UserService userService;
+
     @GetMapping
-    public ArrayList<User> getMethod(){
-        ArrayList<User> userList = new ArrayList<>();
-        User user_1 = new User(1,"Jack","Jack@email.com","Password");
-        User user_2 = new User(2,"John","John@email.com","Password");
-        User user_3 = new User(3,"Tommy","Tommy@email.com","Password");
-        User user_4 = new User(4,"Jimmy","Jimmy@email.com","Password");
-        userList.add(user_1);
-        userList.add(user_2);
-        userList.add(user_3);
-        userList.add(user_4);
-        return userList;
+    public List<User> getUser(){
+        return userService.getUsers();
+    }
+
+    @PostMapping(path = "/user")
+    public User addNewUser(@RequestBody User user){
+        return userService.addUser(user);
+    }
+
+    @PutMapping(path = "/user/{id}")
+    public void updateUser(@RequestBody User user,@PathVariable("id") int id){
+        userService.updateUser(user, id);
+    }
+
+    @DeleteMapping(path = "/user/{id}")
+    public User deleteUser(@PathVariable("id") Long id){
+        return userService.deleteUser(id);
     }
 
 
