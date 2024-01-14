@@ -1,8 +1,6 @@
 package com.example.demo;
 
-import com.example.demo.users.User;
-import com.example.demo.users.UserRepository;
-import com.example.demo.users.UserService;
+import com.example.demo.users.*;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -17,6 +15,9 @@ public class UserServiveTest {
     @Mock
     private UserRepository userRepository;
 
+    @Mock
+    private UserMapper userMapper;
+
     @InjectMocks
     private UserService userService;
 
@@ -30,7 +31,7 @@ public class UserServiveTest {
     }
 
     @Test
-    public void updateUserTest(){
+    public void updateUserTestIfIdFound(){
         Long id = 1L;
         User user = new User(1L,"nameExample","example@email.com","passwordExample");
         User userUpdated = new User(1L,"updateName","update@email.com","updatePassword");
