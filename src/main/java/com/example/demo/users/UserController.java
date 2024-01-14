@@ -12,13 +12,13 @@ public class UserController {
     private UserService userService;
 
     @GetMapping
-    public List<User> getUser(){
+    public List<UserDto> getUser(){
         return userService.getUsers();
     }
 
     @PostMapping(path = "/user")
-    public User addNewUser(@RequestBody User user){
-        return userService.addUser(user);
+    public UserDto addNewUser(@RequestBody UserDto userDto){
+        return userService.addUser(userDto);
     }
 
     @PutMapping(path = "/user/{id}")
@@ -27,7 +27,7 @@ public class UserController {
     }
 
     @DeleteMapping(path = "/user/{id}")
-    public User deleteUser(@PathVariable("id") Long id){
+    public UserDto deleteUser(@PathVariable("id") Long id){
         return userService.deleteUser(id);
     }
 

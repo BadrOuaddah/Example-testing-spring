@@ -8,18 +8,22 @@ import java.util.List;
 @Service
 public class UserService {
     private UserRepository userRepository;
+    private UserMapper userMapper;
     @Autowired
-    public UserService(UserRepository userRepository) {
+    public UserService(UserRepository userRepository, UserMapper userMapper) {
         this.userRepository = userRepository;
+        this.userMapper = userMapper;
     }
 
-    public List<User> getUsers() {
-        return userRepository.findAll();
+    public List<UserDto> getUsers() {
+        List<User> userList = userRepository.findAll();
+        return userMapper.toUserDtoList(userList);
     }
 
-    public User addUser(User user){
+    public UserDto addUser(UserDto userDto){
+        User user = userMapper.toUser(userDto);
         userRepository.save(user);
-        return user;
+        return userMapper.toUserDto(user);
     }
 
     public void updateUser(User user, Long id){
@@ -35,7 +39,7 @@ public class UserService {
         }
     }
 
-    public User deleteUser(Long id){
+    public UserDto deleteUser(Long id){
         boolean exists = userRepository.existsById(id);
         if (!exists){
             throw  new IllegalStateException("User with ID : " + id + "does not exists");
