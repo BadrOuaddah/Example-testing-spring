@@ -42,6 +42,14 @@ public class UserServiveTest {
     }
 
     @Test
+    public void updateUserTestIfIdNotFound(){
+        Long id = 1L;
+        User userUpdated = new User(2L,"updateName","update@email.com","updatePassword");
+        when(userRepository.findUserById(id)).thenReturn(null);
+        assertThrows(IllegalArgumentException.class, () -> userService.updateUser(userUpdated, id));
+    }
+
+    @Test
     public void deleteUserTest(){
         Long id = 1L;
         when(userRepository.existsById(id)).thenReturn(true);
