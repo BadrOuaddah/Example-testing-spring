@@ -54,9 +54,17 @@ public class UserServiveTest {
     public void deleteUserTest(){
         Long id = 1L;
         when(userRepository.existsById(id)).thenReturn(true);
-        User userDeleted = userService.deleteUser(id);
+        UserDto userDeleted = userService.deleteUser(id);
         verify(userRepository, times(1)).deleteById(id);
         assertNull(userDeleted);
+    }
+
+    @Test
+    public void deleteUserTestIfIdNotFound(){
+        Long id = 1L;
+        when(userRepository.existsById(id)).thenReturn(false);
+        assertThrows(IllegalArgumentException.class, () -> userService.deleteUser(id));
+        verify(userRepository,never()).deleteById(id);
     }
 
 }

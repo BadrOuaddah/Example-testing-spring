@@ -42,7 +42,7 @@ public class UserService {
     public UserDto deleteUser(Long id){
         boolean exists = userRepository.existsById(id);
         if (!exists){
-            throw  new IllegalStateException("User with ID : " + id + "does not exists");
+            throw  new IllegalArgumentException("User with ID : " + id + " does not exists");
         }
         userRepository.deleteById(id);
         return null;

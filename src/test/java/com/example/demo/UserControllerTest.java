@@ -35,7 +35,6 @@ public class UserControllerTest {
 
     @Test
     public void getUserTest() throws Exception {
-        // TODO : Use MockMvc to test http request and response
         List<UserDto> userDtoList = Arrays.asList(
                 new UserDto(1L, "TestUser", "test@example.com", "password"),
                 new UserDto(2L, "TestUserTwo", "testTwo@example.com", "passwordTwo")
