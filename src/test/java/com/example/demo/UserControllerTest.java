@@ -9,6 +9,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.Arrays;
@@ -16,6 +17,9 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @ExtendWith(MockitoExtension.class)
 public class UserControllerTest {
@@ -30,15 +34,19 @@ public class UserControllerTest {
     private UserController userController;
 
     @Test
-    public void getUserTest(){
+    public void getUserTest() throws Exception {
+        // TODO : Use MockMvc to test http request and response
         List<UserDto> userDtoList = Arrays.asList(
                 new UserDto(1L, "TestUser", "test@example.com", "password"),
                 new UserDto(2L, "TestUserTwo", "testTwo@example.com", "passwordTwo")
         );
         when(userService.getUsers()).thenReturn(userDtoList);
-        userService.getUsers();
+        userController.getUser();
         verify(userService, times(1)).getUsers();
         assertEquals(2,userDtoList.size());
+        mockMvc.perform(get("/api/v1/users").accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andDo(print());
     }
 
 }
