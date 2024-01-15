@@ -48,4 +48,19 @@ public class UserControllerTest {
                 .andDo(print());
     }
 
+    @Test
+    public void addNewUserTest(){
+
+    }
+
+    @Test
+    public void updateUserTest(){
+
+    }
+
+    @Test
+    public void deleteUserTest(){
+
+    }
+
 }
