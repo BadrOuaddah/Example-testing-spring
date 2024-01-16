@@ -39,18 +39,18 @@ public class UserServiveTest {
     public void updateUserTestIfIdFound(){
         Long id = 1L;
         User user = new User(1L,"nameExample","example@email.com","passwordExample");
-        User userUpdated = new User(1L,"updateName","update@email.com","updatePassword");
+        UserDto userDtoUpdated = new UserDto(1L,"updateName","update@email.com","updatePassword");
         when(userRepository.findUserById(id)).thenReturn(user);
-        userService.updateUser(userUpdated, id);
-        assertEquals("updateName",userUpdated.getUserName());
-        assertEquals("update@email.com",userUpdated.getEmail());
-        assertEquals("updatePassword",userUpdated.getPassword());
+        userService.updateUser(userDtoUpdated, id);
+        assertEquals("updateName",userDtoUpdated.getUserName());
+        assertEquals("update@email.com",userDtoUpdated.getEmail());
+        assertEquals("updatePassword",userDtoUpdated.getPassword());
     }
 
     @Test
     public void updateUserTestIfIdNotFound(){
         Long id = 1L;
-        User userUpdated = new User(2L,"updateName","update@email.com","updatePassword");
+        UserDto userUpdated = new UserDto(2L,"updateName","update@email.com","updatePassword");
         when(userRepository.findUserById(id)).thenReturn(null);
         assertThrows(IllegalArgumentException.class, () -> userService.updateUser(userUpdated, id));
     }

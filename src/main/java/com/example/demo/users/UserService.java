@@ -26,13 +26,12 @@ public class UserService {
         return userMapper.toUserDto(user);
     }
 
-    // TODO : Convert User to UserDto in updateUser method
-    public void updateUser(User user, Long id){
+    public void updateUser(UserDto userDto, Long id){
         User userOptional = userRepository.findUserById(id);
         if (userOptional != null){
-            userOptional.setUserName(user.getUserName());
-            userOptional.setEmail(user.getEmail());
-            userOptional.setPassword(user.getPassword());
+            userOptional.setUserName(userDto.getUserName());
+            userOptional.setEmail(userDto.getEmail());
+            userOptional.setPassword(userDto.getPassword());
             userRepository.save(userOptional);
         }
         else {
