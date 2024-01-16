@@ -85,7 +85,7 @@ public class UserControllerTest {
     }
 
     @Test
-    public void g() throws Exception {
+    public void deleteUserTest() throws Exception {
         Long id = 1L;
         UserDto userDto = new UserDto(id, "TestUser", "test@example.com", "password");
         when(userService.deleteUser(id)).thenReturn(null);
