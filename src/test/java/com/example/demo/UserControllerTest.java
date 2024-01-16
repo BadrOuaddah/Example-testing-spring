@@ -1,8 +1,10 @@
 package com.example.demo;
 
+import com.example.demo.users.User;
 import com.example.demo.users.UserController;
 import com.example.demo.users.UserDto;
 import com.example.demo.users.UserService;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -73,8 +75,14 @@ public class UserControllerTest {
     }
 
     @Test
-    public void updateUserTest(){
-
+    public void updateUserTest() throws Exception {
+        Long id = 1L;
+        User user = new User();
+        UserDto userUpdated = new UserDto(id, "UserUpdated", "updated@example.com", "passwordUpdated");
+          mockMvc.perform(put("/api/v1/users/user/{id}",id)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(userUpdated)).accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
     }
 
     @Test

@@ -21,6 +21,7 @@ public class UserController {
         return userService.addUser(userDto);
     }
 
+    // TODO : Convert User to UserDto in PUT method
     @PutMapping(path = "/user/{id}")
     public void updateUser(@RequestBody User user,@PathVariable("id") Long id){
         userService.updateUser(user, id);

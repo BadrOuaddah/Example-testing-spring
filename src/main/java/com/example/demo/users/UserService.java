@@ -26,6 +26,7 @@ public class UserService {
         return userMapper.toUserDto(user);
     }
 
+    // TODO : Convert User to UserDto in updateUser method
     public void updateUser(User user, Long id){
         User userOptional = userRepository.findUserById(id);
         if (userOptional != null){
