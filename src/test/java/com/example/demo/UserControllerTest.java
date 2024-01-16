@@ -4,7 +4,6 @@ import com.example.demo.users.User;
 import com.example.demo.users.UserController;
 import com.example.demo.users.UserDto;
 import com.example.demo.users.UserService;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -86,8 +85,15 @@ public class UserControllerTest {
     }
 
     @Test
-    public void deleteUserTest(){
-
+    public void g() throws Exception {
+        Long id = 1L;
+        UserDto userDto = new UserDto(id, "TestUser", "test@example.com", "password");
+        when(userService.deleteUser(id)).thenReturn(null);
+        userController.deleteUser(id);
+        verify(userService,times(1)).deleteUser(id);
+        mockMvc.perform(delete("/api/v1/users/user/{id}",id)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(userDto)).accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
     }
-
 }
