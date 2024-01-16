@@ -25,9 +25,14 @@ public class UserServiveTest {
     @Test
     public void addUserTest(){
         User user = new User(1L, "TestUser", "test@example.com", "password");
-        User userAdded = userService.addUser(user);
+        UserDto userDto = new UserDto(1L, "TestUser", "test@example.com", "password");
+        when(userMapper.toUser(userDto)).thenReturn(user);
+        when(userMapper.toUserDto(user)).thenReturn(userDto);
+        UserDto userAdded = userService.addUser(userDto);
+        assertEquals(userDto,userAdded);
         verify(userRepository, times(1)).save(user);
-        assertNotNull(userAdded);
+        verify(userMapper, times(1)).toUser(userDto);
+        verify(userMapper, times(1)).toUserDto(user);
     }
 
     @Test
