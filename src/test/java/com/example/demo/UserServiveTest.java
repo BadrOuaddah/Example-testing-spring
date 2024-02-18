@@ -3,6 +3,7 @@ package com.example.demo;
 import com.example.demo.users.*;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.api.function.Executable;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -42,9 +43,9 @@ public class UserServiveTest {
         UserDto userDtoUpdated = new UserDto(1L,"updateName","update@email.com","updatePassword");
         when(userRepository.findUserById(id)).thenReturn(user);
         userService.updateUser(userDtoUpdated, id);
-        assertEquals("updateName",userDtoUpdated.getUserName());
-        assertEquals("update@email.com",userDtoUpdated.getEmail());
-        assertEquals("updatePassword",userDtoUpdated.getPassword());
+//        doNothing().when(userRepository.save(any()));
+        verify(userRepository, times(1)).save(user);
+        // TODO :
     }
 
     @Test

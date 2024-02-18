@@ -53,19 +53,24 @@ public class UserControllerTest {
                 new UserDto(2L, "TestUserTwo", "testTwo@example.com", "passwordTwo")
         );
         when(userService.getUsers()).thenReturn(userDtoList);
-        userController.getUser();
+        List<UserDto> result = userController.getUser();
         verify(userService, times(1)).getUsers();
-        assertEquals(2,userDtoList.size());
+        assertEquals(result.size(),userDtoList.size());
         mockMvc.perform(get("/api/v1/users").accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andDo(print());
     }
 
+    // TODO : get user if user is null
+
     @Test
     public void addNewUserTest() throws Exception {
         UserDto userDto = new UserDto(1L, "TestUser", "test@example.com", "password");
         when(userService.addUser(userDto)).thenReturn(userDto);
-        userController.addNewUser(userDto);
+        UserDto result = userController.addNewUser(userDto);
+        assertEquals(result.getUserName(),userDto.getUserName());
+        assertEquals(result.getEmail(),userDto.getEmail());
+        assertEquals(result.getPassword(),userDto.getPassword());
         verify(userService,times(1)).addUser(userDto);
         mockMvc.perform(post("/api/v1/users/user")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -83,6 +88,8 @@ public class UserControllerTest {
                 .content(objectMapper.writeValueAsString(userUpdated)).accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
     }
+
+    //TODO : add update user if id not found
 
     @Test
     public void deleteUserTest() throws Exception {
